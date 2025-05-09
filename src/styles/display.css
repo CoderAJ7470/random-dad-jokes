@@ -1,0 +1,9 @@
+.display-wrapper {
+  height: 30rem;
+  border: 1px solid rgb(5, 90, 165);
+  border-radius: 0.4rem;
+  padding: 0.6rem;
+  overflow-y: scroll;
+  line-height: 1.3rem;
+  letter-spacing: 1px;
+}
