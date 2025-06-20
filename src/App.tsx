@@ -1,10 +1,10 @@
-import { Machine } from './components/Machine';
+import { Wrapper } from './components/Wrapper';
 
 import './styles/fonts.css';
 import './styles/common.css';
 
 function App() {
-  return <Machine />;
+  return <Wrapper />;
 }
 
 export default App;

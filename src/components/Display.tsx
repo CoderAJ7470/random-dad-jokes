@@ -1,7 +1,7 @@
 import { useGetJokesQuery } from '../state/quotesAPISlice';
 import '../styles/display.css';
 
-import { Joke, Jokes } from '../helpers/types';
+import { Joke } from '../helpers/types';
 
 export const Display = () => {
   const { data: jokes, isLoading } = useGetJokesQuery({});
@@ -10,7 +10,7 @@ export const Display = () => {
   if (isLoading) {
     return (
       <section className='jokes-display'>
-        Please wait, getting the jokes...
+        Please wait, retrieving jokes...
       </section>
     );
   }
