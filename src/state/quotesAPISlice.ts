@@ -11,7 +11,7 @@ export const jokesApiSlice = createApi({
   endpoints: (builder) => {
     return {
       getJokes: builder.query({
-        query: () => '/search',
+        query: (page = 1) => '/search?page=' + page,
       }),
     };
   },

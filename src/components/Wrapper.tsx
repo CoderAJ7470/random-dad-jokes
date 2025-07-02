@@ -9,7 +9,7 @@ export const Wrapper = () => {
     <section className='wrapper'>
       <Header />
       <Options />
-      <Display />
+      {/* <Display /> */}
     </section>
   );
 };

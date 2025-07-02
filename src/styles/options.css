@@ -6,6 +6,10 @@
   padding: 0.3rem;
 }
 
+.load-page-button {
+  margin-left: 1rem;
+}
+
 .options-wrapper section:first-of-type {
   margin-bottom: 1rem;
 }

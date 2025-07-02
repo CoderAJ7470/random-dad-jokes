@@ -1,11 +1,17 @@
 import { useGetJokesQuery } from '../state/quotesAPISlice';
 import '../styles/display.css';
 
-import { Joke } from '../helpers/types';
+import { Joke, Jokes } from '../helpers/types';
 
-export const Display = () => {
-  const { data: jokes, isLoading } = useGetJokesQuery({});
-  const jokesArray = jokes && jokes.results;
+export const Display = ({
+  jokesArray,
+  isLoading,
+}: {
+  jokesArray: Array<Joke>;
+  isLoading: boolean;
+}) => {
+  // const { data: jokes, isLoading } = useGetJokesQuery({});
+  // const jokesArray = jokes && jokes.results;
 
   if (isLoading) {
     return (
@@ -17,13 +23,14 @@ export const Display = () => {
 
   return (
     <section className='jokes-display'>
-      {jokesArray.map((joke: Joke) => {
-        return (
-          <p className='joke' key={joke.id}>
-            {joke.joke}
-          </p>
-        );
-      })}
+      {jokesArray &&
+        jokesArray.map((joke: Joke) => {
+          return (
+            <p className='joke' key={joke.id}>
+              {joke.joke}
+            </p>
+          );
+        })}
     </section>
   );
 };
