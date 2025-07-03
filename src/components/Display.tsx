@@ -1,4 +1,3 @@
-import { useGetJokesQuery } from '../state/quotesAPISlice';
 import '../styles/display.css';
 
 import { Joke, Jokes } from '../helpers/types';

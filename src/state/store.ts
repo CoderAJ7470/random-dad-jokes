@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { jokesApiSlice } from './quotesAPISlice';
+import { jokesApiSlice } from './jokesAPISlice';
 
 export const store = configureStore({
   reducer: {
