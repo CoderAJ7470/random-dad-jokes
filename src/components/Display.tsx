@@ -9,9 +9,6 @@ export const Display = ({
   jokesArray: Array<Joke>;
   isLoading: boolean;
 }) => {
-  // const { data: jokes, isLoading } = useGetJokesQuery({});
-  // const jokesArray = jokes && jokes.results;
-
   if (isLoading) {
     return (
       <section className='jokes-display'>

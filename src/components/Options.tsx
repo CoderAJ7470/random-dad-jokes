@@ -1,5 +1,6 @@
 import { SetStateAction, useState } from 'react';
 import { useGetJokesQuery } from '../state/jokesAPISlice';
+import { checkUserInput } from '../helpers/functions';
 
 import '../styles/options.css';
 import { Display } from './Display';
@@ -7,6 +8,7 @@ import { Display } from './Display';
 export const Options = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [userInputPage, setUserInputPage] = useState('');
+  const [error, setError] = useState('');
 
   const { data: jokes, isLoading } = useGetJokesQuery(pageNumber);
   const currentPage = jokes && jokes.current_page;
@@ -19,6 +21,18 @@ export const Options = () => {
     setUserInputPage(event.target.value);
   };
 
+  const handleOnKeyDown = (event: { key: string }) => {
+    if (event.key === 'Enter') {
+      const userInput = parseInt(userInputPage);
+      const errorMessage = checkUserInput(userInput, totalPages as never);
+      setError(errorMessage);
+
+      if (!errorMessage) {
+        setPageNumber(parseInt(userInputPage));
+      }
+    }
+  };
+
   const handleLoadPageButtonOnClick = () => {
     setPageNumber(parseInt(userInputPage));
     setUserInputPage('');
@@ -27,22 +41,26 @@ export const Options = () => {
   return (
     <>
       <section className='options-wrapper'>
-        <p>
-          Search for a specific page of dad jokes (returns 20 jokes/page):&nbsp;
+        <p className='search-by-page-instructions'>
+          Search for a specific page of dad jokes (returns 20 jokes/page). Input
+          must be a number between 1 and {totalPages} (inclusive):&nbsp;
           <input
             type='text'
             size={3}
+            onKeyDown={handleOnKeyDown}
             onChange={handleInputOnChange}
             value={userInputPage}
           />
-          <button
-            className='load-page-button'
-            onClick={() => handleLoadPageButtonOnClick()}
-            disabled={userInputPage === ''}
-          >
-            Load Dad Jokes
-          </button>
         </p>
+        <p className='error-message'>{error}</p>
+        <button
+          className='load-page-button'
+          onClick={() => handleLoadPageButtonOnClick()}
+          disabled={userInputPage === ''}
+        >
+          Load Dad Jokes
+        </button>
+
         <p>
           Showing page {currentPage} of {totalPages} pages
         </p>
