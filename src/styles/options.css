@@ -4,22 +4,34 @@
   border: 1px solid rgb(5, 90, 165);
   border-radius: 0.4rem;
   padding: 0.3rem;
+  line-height: 1.1rem;
 }
 
 .search-by-page-instructions {
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   margin-bottom: 0;
 }
 
-.error-message {
-  color: rgb(165, 0, 0);
-  height: 1.2rem;
-  margin-top: 0.5rem;
-  margin-bottom: 1.2rem;
+.input-wrapper {
+  position: relative;
+  margin-top: 0.3rem;
 }
 
-.options-wrapper section:first-of-type {
-  margin-bottom: 1rem;
+.load-page-button {
+  margin-left: 1rem;
+}
+
+.load-page-button:disabled {
+  cursor: not-allowed;
+}
+
+.error {
+  font-weight: 600;
+  color: rgb(165, 0, 0);
+}
+
+.input-error {
+  border: 2px solid rgb(165, 0, 0);
 }
 
 .paging-buttons:first-of-type {

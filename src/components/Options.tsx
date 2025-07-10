@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { useGetJokesQuery } from '../state/jokesAPISlice';
 import { checkUserInput } from '../helpers/functions';
 
@@ -34,37 +34,62 @@ export const Options = () => {
   };
 
   const handleLoadPageButtonOnClick = () => {
-    setPageNumber(parseInt(userInputPage));
-    setUserInputPage('');
+    const userInput = parseInt(userInputPage);
+    const errorMessage = checkUserInput(userInput, totalPages as never);
+    setError(errorMessage);
+
+    if (!errorMessage) {
+      setPageNumber(parseInt(userInputPage));
+      setUserInputPage('');
+    }
   };
+
+  useEffect(() => {
+    const inputInstruction = document.querySelector('#instruction');
+    const searchInput = document.querySelector('#searchInput');
+
+    if (error) {
+      inputInstruction?.classList.add('error');
+      searchInput?.classList.add('input-error');
+    } else {
+      inputInstruction?.classList.remove('error');
+      searchInput?.classList.remove('input-error');
+    }
+  }, [error]);
 
   return (
     <>
       <section className='options-wrapper'>
         <p className='search-by-page-instructions'>
-          Search for a specific page of dad jokes (returns 20 jokes/page). Input
-          must be a number between 1 and {totalPages} (inclusive):&nbsp;
+          Search for a specific page of dad jokes (returns 20 jokes/page).{' '}
+          <span id='instruction' className='validation'>
+            Input must be a number between 1 and {totalPages} (inclusive)
+          </span>
+          :
+        </p>
+        <section className='input-wrapper'>
           <input
+            className='user-search-input'
+            id='searchInput'
             type='text'
             size={3}
             onKeyDown={handleOnKeyDown}
             onChange={handleInputOnChange}
             value={userInputPage}
           />
-        </p>
-        <p className='error-message'>{error}</p>
-        <button
-          className='load-page-button'
-          onClick={() => handleLoadPageButtonOnClick()}
-          disabled={userInputPage === ''}
-        >
-          Load Dad Jokes
-        </button>
-
+          <button
+            className='load-page-button'
+            onClick={() => handleLoadPageButtonOnClick()}
+            disabled={userInputPage === ''}
+          >
+            Load Dad Jokes
+          </button>
+        </section>
         <p>
-          Showing page {currentPage} of {totalPages} pages
+          Or... simply browse pages with the paging buttons below. Showing page{' '}
+          {currentPage} of {totalPages} pages
         </p>
-        <p>
+        <section>
           <button
             className='paging-buttons'
             onClick={() => setPageNumber(pageNumber - 1)}
@@ -79,7 +104,7 @@ export const Options = () => {
           >
             Next
           </button>
-        </p>
+        </section>
       </section>
       <Display jokesArray={results} isLoading={isLoading} />
     </>
