@@ -10,6 +10,9 @@ export const Options = () => {
   const [userInputPage, setUserInputPage] = useState('');
   const [error, setError] = useState('');
 
+  /**
+   * Destructured options from useGetJokesQuery - part of RTK Query's functionality
+   */
   const { data: jokes, isLoading } = useGetJokesQuery(pageNumber);
   const currentPage = jokes && jokes.current_page;
   const totalPages = jokes && jokes.total_pages;
@@ -21,6 +24,10 @@ export const Options = () => {
     setUserInputPage(event.target.value);
   };
 
+  /**
+   * Handles the user search option if the user presses the Enter key to search for a specific page of jokes. Also includes some simple error checking.
+   * @param event - The Enter key getting pressed
+   */
   const handleOnKeyDown = (event: { key: string }) => {
     if (event.key === 'Enter') {
       const userInput = parseInt(userInputPage);
@@ -33,6 +40,9 @@ export const Options = () => {
     }
   };
 
+  /**
+   * Handles the user event of pressing the "Load Dad Jokes" button to search for a specific page of dad jokes. Also includes some simple error checking.
+   */
   const handleLoadPageButtonOnClick = () => {
     const userInput = parseInt(userInputPage);
     const errorMessage = checkUserInput(userInput, totalPages as never);
