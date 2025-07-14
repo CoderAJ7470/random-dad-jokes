@@ -1,5 +1,5 @@
 {
-  "name": "random-quotes-jokes-machine",
+  "name": "random-dad-jokes",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -30,3 +30,4 @@
     "vite": "^6.2.0"
   }
 }
+
