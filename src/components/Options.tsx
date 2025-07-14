@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import { useGetJokesQuery } from '../state/jokesAPISlice';
-import { checkUserInput } from '../helpers/functions';
+import { checkUserInputHasError } from '../helpers/functions';
 
 import '../styles/options.css';
 import { Display } from './Display';
@@ -8,7 +8,7 @@ import { Display } from './Display';
 export const Options = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [userInputPage, setUserInputPage] = useState('');
-  const [error, setError] = useState('');
+  const [hasError, setHasError] = useState(false);
 
   /**
    * Destructured options from useGetJokesQuery - part of RTK Query's functionality
@@ -31,10 +31,10 @@ export const Options = () => {
   const handleOnKeyDown = (event: { key: string }) => {
     if (event.key === 'Enter') {
       const userInput = parseInt(userInputPage);
-      const errorMessage = checkUserInput(userInput, totalPages as never);
-      setError(errorMessage);
+      const hasError = checkUserInputHasError(userInput, totalPages as never);
+      setHasError(hasError);
 
-      if (!errorMessage) {
+      if (!hasError) {
         setPageNumber(parseInt(userInputPage));
       }
     }
@@ -45,10 +45,10 @@ export const Options = () => {
    */
   const handleLoadPageButtonOnClick = () => {
     const userInput = parseInt(userInputPage);
-    const errorMessage = checkUserInput(userInput, totalPages as never);
-    setError(errorMessage);
+    const hasError = checkUserInputHasError(userInput, totalPages as never);
+    setHasError(hasError);
 
-    if (!errorMessage) {
+    if (!hasError) {
       setPageNumber(parseInt(userInputPage));
       setUserInputPage('');
     }
@@ -58,14 +58,14 @@ export const Options = () => {
     const inputInstruction = document.querySelector('#instruction');
     const searchInput = document.querySelector('#searchInput');
 
-    if (error) {
+    if (hasError) {
       inputInstruction?.classList.add('error');
       searchInput?.classList.add('input-error');
     } else {
       inputInstruction?.classList.remove('error');
       searchInput?.classList.remove('input-error');
     }
-  }, [error]);
+  }, [hasError]);
 
   return (
     <>

@@ -1,11 +1,14 @@
-export const checkUserInput = (userInput: number, maxNumOfPages: never) => {
+export const checkUserInputHasError = (
+  userInput: number,
+  maxNumOfPages: never
+) => {
   const firstPage = 1;
 
   if (userInput.toString() === 'NaN') {
-    return `Please ensure your input is a number between 1 and ${maxNumOfPages} (inclusive)`;
+    return true;
   } else if (userInput < firstPage || userInput > maxNumOfPages) {
-    return `Invalid page number. Please enter a number between 1 and ${maxNumOfPages} (inlcusive)`;
+    return true;
   }
 
-  return '';
+  return false;
 };
