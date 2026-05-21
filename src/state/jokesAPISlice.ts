@@ -3,15 +3,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const jokesApiSlice = createApi({
   reducerPath: 'jokes',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://icanhazdadjoke.com',
-    prepareHeaders: (headers) => {
-      headers.set('Accept', 'application/json');
-    },
+    baseUrl: 'https://dadjokes.bamboozledaardvark.com',
   }),
   endpoints: (builder) => {
     return {
       getJokes: builder.query({
-        query: (page = 1) => '/search?page=' + page,
+        query: (cursor = '') =>
+          `/api/jokes?limit=20${cursor ? `&cursor=${cursor}` : ''}`,
+        keepUnusedDataFor: 300,
       }),
     };
   },

@@ -1,6 +1,6 @@
 import '../styles/display.css';
 
-import { Joke, Jokes } from '../helpers/types';
+import { Joke } from '../helpers/types';
 
 export const Display = ({
   jokesArray,

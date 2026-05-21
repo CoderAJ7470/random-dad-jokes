@@ -3,15 +3,9 @@ export interface Jokes {
 }
 
 export interface JokeData {
-  current_page: number;
-  limit: number;
-  next_page: number;
-  previous_page: number;
   results: Joke[];
-  search_term: string;
-  status: number;
-  total_jokes: number;
-  total_pages: number;
+  next: string | null;
+  previous: string | null;
 }
 
 export interface Joke {
